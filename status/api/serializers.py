@@ -23,10 +23,12 @@ class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
         fields = [
+            'id', #?
             'user',
             'content',
             'image'
         ]
+        read_only_fields = ['user'] # GET # readonly_fields
         
         # def validate_<fieldname>(self, value) i.e. validate_content
         
