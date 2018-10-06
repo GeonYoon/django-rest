@@ -36,3 +36,8 @@ class Status(models.Model): #fb status, instagram post, tweet, linkedin post
     class Meta:
         verbose_name = 'Status post'
         verbose_name_plural = 'Status posts'
+    
+    # You did obj.owner but you set owner as user in the status model. So you do redirecting here.    
+    @property
+    def owner(self):
+        return self.user

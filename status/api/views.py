@@ -6,6 +6,7 @@ from rest_framework.response import Response
 #from django.views.generic import view
 from django.shortcuts import get_object_or_404
 
+from accounts.api.permissions import IsOwnerOrReadOnly
 from status.models import Status
 from .serializers import StatusSerializer
 
@@ -26,8 +27,7 @@ class StatusAPIDetailView(
     mixins.UpdateModelMixin,
     mixins.DestroyModelMixin,
     generics.RetrieveAPIView):
-    permission_classes          = []
-    authentication_classes      = []
+    permission_classes          = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     queryset                    = Status.objects.all()
     serializer_class            = StatusSerializer
     lookup_field                ='id'
@@ -49,12 +49,12 @@ class StatusAPIDetailView(
     # def perform_update(self, serializer):
     #     serializer.save(updated_by_user=self.request.user)
 
+#Login required mixin / decorator 
 
 class StatusAPIView(
     mixins.CreateModelMixin,
     generics.ListAPIView): 
     permission_classes          = [permissions.IsAuthenticatedOrReadOnly] # is this person authenticated or not?
-    authentication_classes      = [SessionAuthentication]
     # queryset                    = Status.objects.all()
     serializer_class            = StatusSerializer
     passed_id                   = None

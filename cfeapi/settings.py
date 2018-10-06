@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #local
+    'accounts',
     'updates',
     'status',
     
@@ -133,3 +134,5 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # os.path.join(os.path.dirname(BASE_DIR), 'static-server', 'media-root') --> if you want to save outside of the project folder
 MEDIA_URL = '/media/'
+
+from cfeapi.restconf.main import *
