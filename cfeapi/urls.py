@@ -27,5 +27,5 @@ urlpatterns = [
     path('api/auth/', include('accounts.api.urls')),
     path('api/user/', include(('accounts.api.user.urls','api-user'))),
     path('api/', include('rest_framework.urls')),
-    path('api/status/',include('status.api.urls')),
+    path('api/status/',include(('status.api.urls','api-status'))),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

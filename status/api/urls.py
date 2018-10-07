@@ -14,5 +14,5 @@ from .views import (
 
 urlpatterns = [
     path('', StatusAPIView.as_view()),
-    path('<int:id>/', StatusAPIDetailView.as_view()),
+    path('<int:id>/', StatusAPIDetailView.as_view(), name='detail'),
 ]

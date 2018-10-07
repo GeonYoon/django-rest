@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from status.models import Status
 from accounts.api.serializers import UserPublicSerializer
+from rest_framework.reverse import reverse as api_reverse
 '''
 Serializers --> JSON
 Serializers --> vlaidate data 
@@ -19,22 +20,11 @@ but also for "cleaning" it — normalizing it to a consistent format
 #     content =        serializers.CharField()
 #     email   =        serializers.EmailField()
     
-class StatusInlineUserSerializer(serializers.ModelSerializer):
-    uri     = serializers.SerializerMethodField(read_only=True)
-    class Meta:
-        model = Status
-        fields = [
-            'id', #?
-            'content',
-            'image',
-            'uri',
-        ]
-        
-    def get_uri(self, obj):
-        return "/api/status/{id}/".format(id=obj.id)
+
 
 class StatusSerializer(serializers.ModelSerializer):
     uri     = serializers.SerializerMethodField(read_only=True)
+    # user    = serializers.SerializerMethodField(read_only=True)
     user    = UserPublicSerializer(read_only = True)
     class Meta:
         model = Status
@@ -46,9 +36,15 @@ class StatusSerializer(serializers.ModelSerializer):
             'uri',
         ]
         read_only_fields = ['user'] # GET # readonly_fields
+    # def get_user(self, obj):
+    #     request = self.context.get('request')
+    #     user = obj.user
+    #     return UserPublicSerializer(user, read_only=True, context={"request" : request}).data
         
     def get_uri(self, obj):
-        return "/api/status/{id}/".format(id=obj.id)
+        request = self.context.get('request')
+        # return "/api/status/{id}/".format(id=obj.id)
+        return api_reverse('api-status:detail', kwargs={'id' : obj.id}, request=request)
     
     # def validate_<fieldname>(self, value) i.e. validate_content
     
@@ -65,8 +61,21 @@ class StatusSerializer(serializers.ModelSerializer):
         if content is None and image is None:
             raise serializers.ValidationError("Content or image is required")
         return data
+
+# inherit StatusSerializer        
+class StatusInlineUserSerializer(StatusSerializer):
+    # uri     = serializers.SerializerMethodField(read_only=True)
+    class Meta:
+        model = Status
+        fields = [
+            'id', #?
+            'content',
+            'image',
+            'uri',
+        ]
         
-            
+    # def get_uri(self, obj):
+    #     return "/api/status/{id}/".format(id=obj.id)            
             
             
             

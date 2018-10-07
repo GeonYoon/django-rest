@@ -8,7 +8,15 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    )
+    ),
+    # Your response could be a lot faster using pagination class
+    'DEFAULT_PAGINATION_CLASS' : 'cfeapi.restconf.pagination.CFEAPIPagination',
+    'DEFAULT_FILTER_BACKENDS' :(
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ),
+    'SEARCH_PARAM' : 'q',
+    'ORDERING_PARAM' : 'ordering',
 }
 
 
