@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #local
     'accounts',
-    'updates',
     'status',
     
     # third party
