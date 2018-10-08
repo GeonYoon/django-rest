@@ -32,30 +32,46 @@ Run server with following line
 python3 manage.py runserver
 ```
 ## Django Cheatsheet
-Creating a new project
+```
+Creating a new project :
 django-admin startproject projectname
 
-Add an app to a project
+Add an app to a project : 
 python3 manage.py startapp appname
 
-Starting the server
+Starting the server : 
 // In case of c9, you need to add $IP:$PORT at the end of the command
 python3 manage.py runserver $IP:$PORT
 
-Creating migrations
+Creating migrations:
 python3 manage.py makemigrations
 
-Migrate the database
+Migrate the database : 
 python3 manage.py migrate
 
-Creating a Super User for the admin panel
+Creating a Super User for the admin panel : 
 python3 manage.py createsuperuserRun 
 
-Collecting static files into one folder
+Collecting static files into one folder : 
 python3 manage.py collectstatic
-
+```
         
-## Function Description
+## API endpoint
+```
+List of available API (browseable) at /api
+* /admin/                   ---> admin page
+
+* /api/auth/                ---> Login 
+* /api/auth/register/       ---> Register
+* /api/auth/jwt/            ---> Obtain JWT 
+* /api/auth/jwt/refresh     ---> refresh JWT
+
+* /api/user/<username>      ---> User Detail View
+* /api/user/<status>        ---> User Status API View
+
+* /api/status/              ---> Status API View
+* /api/status/<id>/         ---> Status API Detail View
+```
 
 
 ## Built With
